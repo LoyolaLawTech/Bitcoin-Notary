@@ -15,23 +15,23 @@ http://stackoverflow.com/q/13981832/49359
         <meta name="viewport" content="width=device-width, user-scalable = no">
     </head>
     <body>
-<input type="file" id="files" name="file" /> Read bytes: 
-<span class="readBytesButtons">
-<!--
-  <button data-startbyte="0" data-endbyte="4">1-5</button>
-  <button data-startbyte="5" data-endbyte="14">6-15</button>
-  <button data-startbyte="6" data-endbyte="7">7-8</button>
-  -->
-  <button>Calculate Hash</button>
-</span>
+<h1>Generate Data for API Request</h1>
+<h3>Step One</h3>
+<p>Upload a file</p>
+<input type="file" id="files" name="file" />
+<h3>Step Two</h3>
+<p>Get the Hash</p>
+<button class="readBytesButtons">Calculate Hash</button>
 <div id="byte_range"></div><BR>
 <div id="byte_content"></div><BR>
 <div id="crypto_sha256"></div>
-<label>Hash<label>
+<label for="hash">Hash<label>
 <input id="hash">
-<hr />
-Private Key:
-<textarea id="privateKey">-----BEGIN PGP PRIVATE KEY BLOCK-----
+<h3>Sign the document</h3>
+<p>User supplies private key (a test key is supplied below along
+with its passphrase)</p>
+<label for="privateKey">Private Key:</label>
+<textarea id="privateKey" cols="68" rows="30">-----BEGIN PGP PRIVATE KEY BLOCK-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
 lQO+BFb70rYBCAC82TraMB7QcGTnC1mmelzXD/f7gXnPTYVO8dyDSQES5E2Y0nEj
@@ -91,13 +91,30 @@ ciH5R8bXQUgRaUT9AB6yG7I5znvzunm8e5tGa40YaPRFVRCHNwROEqWV1PdSZWzR
 =D+ol
 -----END PGP PRIVATE KEY BLOCK-----
 </textarea>
+<br />
+<br />
+<label for="passphrase">Passphrase</label>
 <input id="passphrase" value = "test">
 
 <button id="sign">Sign</button>
-<hr />
-<input id="hash-result">
-<input id="signature">
+<h3>Get the Results</h3>
+<label for="hash-result">Hash</label>
+<input id="hash-result"><br />
+<label for="signature">Signature</label>
+<input id="signature"><br />
+<label for="fingerprint">Fingerprint</label>
 <input id="fingerprint">
+<h3>API Request Should Look Like:</h3>
+<pre>
+<code>
+    $.post('/api/v2/appendSig/', {
+        hash: hash,
+        signature: {signature: signature, fingerprint: fingerprint}
+    }).done(function(result) { //etc..
+
+</code>
+
+</pre>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>

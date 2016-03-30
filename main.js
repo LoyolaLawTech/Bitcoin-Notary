@@ -35,13 +35,14 @@ function readBlob(opt_startByte, opt_stopByte) {
 }
 
 document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
+alert('click');
 if (evt.target.tagName.toLowerCase() === 'button') {
-    var startByte = evt.target.getAttribute('data-startbyte');
-    var endByte = evt.target.getAttribute('data-endbyte');
+  var startByte = evt.target.getAttribute('data-startbyte');
+  var endByte = evt.target.getAttribute('data-endbyte');
 
-    sha256 = CryptoJS.algo.SHA256.create();
+  sha256 = CryptoJS.algo.SHA256.create();
 
-    readBlob(startByte, endByte);
+  readBlob(startByte, endByte);
 } }, false);
 
 document.querySelector('#sign').addEventListener('click', function(evt) {
