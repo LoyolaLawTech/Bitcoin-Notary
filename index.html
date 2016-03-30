@@ -1,76 +1,108 @@
 <!-- Initial code based on this helpful Stack Overflow post:
 http://stackoverflow.com/q/13981832/49359
 -->
-<style>
-  #byte_content {
-    margin: 5px 0;
-    max-height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  #byte_range { margin-top: 5px; }
-</style>
-
+<!DOCTYPE html>
+<html> 
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Hashing demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, user-scalable = no">
+    </head>
+    <body>
 <input type="file" id="files" name="file" /> Read bytes: 
 <span class="readBytesButtons">
+<!--
   <button data-startbyte="0" data-endbyte="4">1-5</button>
   <button data-startbyte="5" data-endbyte="14">6-15</button>
   <button data-startbyte="6" data-endbyte="7">7-8</button>
-  <button>entire file</button>
+  -->
+  <button>Calculate Hash</button>
 </span>
 <div id="byte_range"></div><BR>
 <div id="byte_content"></div><BR>
 <div id="crypto_sha256"></div>
+<label>Hash<label>
+<input id="hash">
+<hr />
+Private Key:
+<textarea id="privateKey">-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: GnuPG v1.4.11 (GNU/Linux)
 
+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
+=D+ol
+-----END PGP PRIVATE KEY BLOCK-----
+</textarea>
+<input id="passphrase" value = "test">
+
+<button id="sign">Sign</button>
+<hr />
+<input id="hash-result">
+<input id="signature">
+<input id="fingerprint">
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
-<script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
-  var sha256;
-
-  function readBlob(opt_startByte, opt_stopByte) {
-
-    var files = document.getElementById('files').files;
-    if (!files.length) {
-      alert('Please select a file!');
-      return;
-    }
-
-    var file = files[0];
-    var start = parseInt(opt_startByte) || 0;
-    var stop = parseInt(opt_stopByte) || file.size - 1;
-
-    var reader = new FileReader();
-
-    // If we use onloadend, we need to check the readyState.
-    reader.onloadend = function(evt) {
-      if (evt.target.readyState == FileReader.DONE) { // DONE == 2
-        document.getElementById('byte_content').textContent = evt.target.result;
-        document.getElementById('byte_range').textContent = 
-            ['Read bytes: ', start + 1, ' - ', stop + 1,
-             ' of ', file.size, ' byte file'].join('');
-
-        //**UPDATED SOLUTION: Since its binary data, the message needs to be converted from string to bytes using Latin1**
-            sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
-
-        var hash = sha256.finalize();
-
-        document.getElementById('crypto_sha256').textContent = ['SHA-256: ', hash].join('');
-      }
-    };
-
-    var blob = file.slice(start, stop + 1);
-    reader.readAsBinaryString(blob);
-  }
-
-  document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
-    if (evt.target.tagName.toLowerCase() == 'button') {
-      var startByte = evt.target.getAttribute('data-startbyte');
-      var endByte = evt.target.getAttribute('data-endbyte');
-
-      sha256 = CryptoJS.algo.SHA256.create();
-
-      readBlob(startByte, endByte);
-    }
-  }, false);
-</script>
+<script src="openpgp.js"></script>
+<script src="main.js"></script>
+    </body>
+</html>
