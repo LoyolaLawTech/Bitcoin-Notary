@@ -1,6 +1,6 @@
 /* globals alert, CryptoJS, openpgp */
 
-var sha256;
+var sha256, requestHash;
 
 function readBlob(opt_startByte, opt_stopByte) {
     var files = document.getElementById('files').files;
@@ -35,80 +35,87 @@ function readBlob(opt_startByte, opt_stopByte) {
 }
 
 document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
-alert('click');
-if (evt.target.tagName.toLowerCase() === 'button') {
-  var startByte = evt.target.getAttribute('data-startbyte');
-  var endByte = evt.target.getAttribute('data-endbyte');
+    if (evt.target.tagName.toLowerCase() === 'button') {
+    var startByte = evt.target.getAttribute('data-startbyte');
+    var endByte = evt.target.getAttribute('data-endbyte');
 
-  sha256 = CryptoJS.algo.SHA256.create();
+    sha256 = CryptoJS.algo.SHA256.create();
 
-  readBlob(startByte, endByte);
+    readBlob(startByte, endByte);
 } }, false);
 
 document.querySelector('#sign').addEventListener('click', function(evt) {
     sign($('#hash').val());
 });
-//Test
 
 var sign = function(hash, callback) {
 
-//$('#okSignature').enable(false).text('Loading...');
-var privKey = $('#privateKey').val();
-$('#privateKey').val('');
-var signature;
+    //$('#okSignature').enable(false).text('Loading...');
+    var privKey = $('#privateKey').val();
+    //$('#privateKey').val('');
+    var signature;
 
-//var nextStep = function() {
-    //var dig = bitcore.crypto.Hash.sha256(new bitcore.deps.Buffer(signature)).toString('hex');
-//};
+    //var nextStep = function() {
+        //var dig = bitcore.crypto.Hash.sha256(new bitcore.deps.Buffer(signature)).toString('hex');
+    //};
 
-var result = openpgp.key.readArmored(privKey);
+    var result = openpgp.key.readArmored(privKey);
 
-if (result.keys.length) {
-    var passphrase = $('#passphrase').val();
-    if (passphrase) {
-    if (!result.keys[0].decrypt(passphrase)) {
-        //showErrorSigning = true;
-        //errorSigning.text('Your password doesn\'t match the private key\'s. Mind trying again?')
+    if (result.keys.length) {
+        var passphrase = $('#passphrase').val();
+        if (passphrase) {
+            if (!result.keys[0].decrypt(passphrase)) {
+                //showErrorSigning = true;
+                //errorSigning.text('Your password doesn\'t match the private key\'s. Mind trying again?')
+                //errorSigning.show();
+                //$('#okSignature').enable(true).text('Sign');
+                return;
+            }
+        }
+        var fingerprint = result.keys[0].primaryKey.getFingerprint();
+
+        openpgp.signClearMessage(result.keys, hash).then(function(sig) {
+            signature = sig;
+            $('#hash-result').val(hash);
+            $('#fingerprint').val(fingerprint);
+            $('#signature').val(signature);
+
+           //var api = JSON.stringify('[{"signature":"' + signature + '","fingerprint":"' + fingerprint + '"}]');
+           var api = JSON.stringify({'signature':signature,'fingerprint':fingerprint}); 
+           $('#api_data').val(api); 
+
+           
+           requestHash = CryptoJS.algo.SHA256.create();
+           requestHash.update(CryptoJS.enc.Latin1.parse(api));
+           var hash2 = requestHash.finalize();
+           $('#api_hash').val(hash2); 
+
+            //$.post('/api/v2/appendSig/', {
+                //hash: hash,
+                //signature: {signature: signature, fingerprint: fingerprint}
+            //}).done(function(result) {
+                //if (!result.success) {
+                ////showErrorSigning = true;
+                ////errorSigning.text('We had some issues verifying your signature. Mind trying again later?');
+                ////errorSigning.show();
+                //$('#okSignature').enable(true).text('Sign');
+                //} else {
+                //$('#okSignature').enable(true).text('Sign');
+                //callback();
+                //}
+            //});
+        }).catch(function(e) {
+            //showErrorSigning = true
+            //errorSigning.text('We had some issues verifying your private key. Mind trying again later?');
+            //errorSigning.show();
+            //$('#okSignature').enable(true).text('Sign');
+        });
+    } else {
+        //showErrorSigning = true
+        //errorSigning.text('We couldn\'t recognize the validity of your private key. Mind trying again?');
         //errorSigning.show();
         //$('#okSignature').enable(true).text('Sign');
-        return;
     }
-    }
-    var fingerprint = result.keys[0].primaryKey.getFingerprint();
-
-    openpgp.signClearMessage(result.keys, hash).then(function(sig) {
-
-        signature = sig;
-        $('#hash-result').val(hash);
-        $('#fingerprint').val(fingerprint);
-        $('#signature').val(signature);
-
-        $.post('/api/v2/appendSig/', {
-            hash: hash,
-            signature: {signature: signature, fingerprint: fingerprint}
-        }).done(function(result) {
-            if (!result.success) {
-            //showErrorSigning = true;
-            //errorSigning.text('We had some issues verifying your signature. Mind trying again later?');
-            //errorSigning.show();
-            $('#okSignature').enable(true).text('Sign');
-            } else {
-            $('#okSignature').enable(true).text('Sign');
-            callback();
-            }
-        });
-    }).catch(function(e) {
-        //showErrorSigning = true
-        //errorSigning.text('We had some issues verifying your private key. Mind trying again later?');
-        //errorSigning.show();
-        $('#okSignature').enable(true).text('Sign');
-    });
-} else {
-    //showErrorSigning = true
-    //errorSigning.text('We couldn\'t recognize the validity of your private key. Mind trying again?');
-    //errorSigning.show();
-    $('#okSignature').enable(true).text('Sign');
-}
 };
 
 

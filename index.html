@@ -27,7 +27,8 @@ http://stackoverflow.com/q/13981832/49359
 <div id="crypto_sha256"></div>
 <label for="hash">Hash<label>
 <input id="hash">
-<h3>Sign the document</h3>
+<h3>Step Three</h3>
+<p>Sign the document</p>
 <p>User supplies private key (a test key is supplied below along
 with its passphrase)</p>
 <label for="privateKey">Private Key:</label>
@@ -97,19 +98,25 @@ ciH5R8bXQUgRaUT9AB6yG7I5znvzunm8e5tGa40YaPRFVRCHNwROEqWV1PdSZWzR
 <input id="passphrase" value = "test">
 
 <button id="sign">Sign</button>
-<h3>Get the Results</h3>
+<h3>Step Four</h3>
+<p>Get the Results</p>
 <label for="hash-result">Hash</label>
 <input id="hash-result"><br />
 <label for="signature">Signature</label>
 <input id="signature"><br />
 <label for="fingerprint">Fingerprint</label>
 <input id="fingerprint">
-<h3>API Request Should Look Like:</h3>
+<h3>Step Five</h3>
+<p>Make the API Request</p>
+<label for="api_data">Data that is put in hash</label>
+<textarea id="api_data" cols="68" rows="30"></textarea><br /><br />
+
+<label for="api_hash">Hash Sent to API</label>
+<input id="api_hash" size="64" ></textarea>
 <pre>
 <code>
-    $.post('/api/v2/appendSig/', {
-        hash: hash,
-        signature: {signature: signature, fingerprint: fingerprint}
+    $.post('https://www.proofofexistence.com/api/v1/register', {
+        d:$('#api_hash').val() ,
     }).done(function(result) { //etc..
 
 </code>
