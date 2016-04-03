@@ -108,20 +108,31 @@ ciH5R8bXQUgRaUT9AB6yG7I5znvzunm8e5tGa40YaPRFVRCHNwROEqWV1PdSZWzR
 <input id="fingerprint">
 <h3>Step Five</h3>
 <p>Make the API Request</p>
+<p>We should call this data your "receipt" and ask the user to keep it in a safe
+place, along with the original document</p>
 <label for="api_data">Data that is put in hash</label>
 <textarea id="api_data" cols="68" rows="30"></textarea><br /><br />
 
-<label for="api_hash">Hash Sent to API</label>
+<label for="api_hash"><span style="color:red">*</span>Hash Sent to API</label>
 <input id="api_hash" size="64" ></textarea>
+<h3>Make Request with AJAX</h3>
 <pre>
 <code>
+    var hash = $('#api_hash').val();
     $.post('https://www.proofofexistence.com/api/v1/register', {
-        d:$('#api_hash').val() ,
+        d:hash,
     }).done(function(result) { //etc..
 
 </code>
-
 </pre>
+<h3>Or Make Request with Postman</h3>
+<h4> To Register Document on Proof of Existence:</h4>
+<p>https://proofofexistence.com/api/v1/register?d=[Insert Starred Hash<span style="color:red">*</span>]</p>
+
+<h4>To Confirm After Payment Made:</h4>
+<p>https://proofofexistence.com/api/v1/status?d=[Insert Starred Hash<span style="color:red">*</span>]</p>
+
+
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>

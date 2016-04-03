@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html> 
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Verify Notarization</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, user-scalable = no">
+    </head>
+    <body>
+<h1>Verify Bitcoin Notarization</h1>
+<h3>Step One</h3>
+<p>Upload your receipt</p>
+<input type="file" id="files" name="file" /><br />
+<h3>Step Two</h3>
+<p>Get the hash of your receipt</p>
+<button id="getHash">Generate Hash</button>
+<label for "hash">Hash of your Receipt</label>
+<input type="text" id="hash" size="80">
+<h3>Step Three</h3>
+<label for "checkRegister">Verify that Your Receipt is Registered on Block 
+Chain</label>
+<button id="checkRegister">Check Registration</button>
+<div id="regResult"></div>
+<div id="regUpshot"></div>
+<div id="docHash"></div>
+<script 
+src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="openpgp.js"></script>
+<script src="verify.js"></script>
+</body>
+</html>
