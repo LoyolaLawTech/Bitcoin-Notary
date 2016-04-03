@@ -30,6 +30,7 @@ http://stackoverflow.com/q/13981832/49359
     <input id="hash">
 <h3>Step Three</h3>
 <p>Sign the document</p>
+<h4>Option One</h4>
 <p>User supplies private key (a test key is supplied below along
 with its passphrase)</p>
 <label for="privateKey">Private Key:</label>
@@ -98,7 +99,18 @@ ciH5R8bXQUgRaUT9AB6yG7I5znvzunm8e5tGa40YaPRFVRCHNwROEqWV1PdSZWzR
 <label for="passphrase">Passphrase</label>
 <input id="passphrase" value = "test">
 <button id="sign">Sign</button>
-
+<h4>OR Option Two</h4>
+<p>Sign with Keybase</p>
+<p>Go to <a href="https://keybase.io/sign" 
+target="_new">https://keybase.io/sign</a> and insert this hash:
+<input type="text" id="hash2">
+<p>Put the resulting signed text in this box:</p>
+<textarea id="keybaseSig" cols="68" rows="20"></textarea>
+<p>Provide Your Keybase Username</p>
+<input type="text" id="keybaseUser">
+<button id="keybaseLookup">Lookup</button><br />
+<label for="keybaseFingerprint">Your Key's Fingerprint</label>
+<input type="text" id="keybaseFingerprint">
 <h3>Step Four</h3>
     <p>Get the Results</p>
     <label for="hash-result">Hash</label>
@@ -138,6 +150,6 @@ ciH5R8bXQUgRaUT9AB6yG7I5znvzunm8e5tGa40YaPRFVRCHNwROEqWV1PdSZWzR
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
 <script src="openpgp.js"></script>
-<script src="main.js"></script>
+<script src="generate.js"></script>
     </body>
 </html>

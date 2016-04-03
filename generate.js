@@ -18,15 +18,11 @@ function readBlob(opt_startByte, opt_stopByte) {
     // If we use onloadend, we need to check the readyState.
     reader.onloadend = function(evt) {
         if (evt.target.readyState === FileReader.DONE) { // DONE == 2
-            //document.getElementById('byte_content').textContent = evt.target.result;
-            //document.getElementById('byte_range').textContent = 
-            //    ['Read bytes: ', start + 1, ' - ', stop + 1,
-            //        ' of ', file.size, ' byte file'].join('');
-
             sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
             var hash = sha256.finalize();
             document.getElementById('crypto_sha256').textContent = ['SHA-256: ', hash].join('');
             $('#hash').val(hash);
+            $('#hash2').val(hash);
         }
     };
 
@@ -50,14 +46,8 @@ document.querySelector('#sign').addEventListener('click', function(evt) {
 
 var sign = function(hash, callback) {
 
-    //$('#okSignature').enable(false).text('Loading...');
     var privKey = $('#privateKey').val();
-    //$('#privateKey').val('');
     var signature;
-
-    //var nextStep = function() {
-        //var dig = bitcore.crypto.Hash.sha256(new bitcore.deps.Buffer(signature)).toString('hex');
-    //};
 
     var result = openpgp.key.readArmored(privKey);
 
@@ -65,10 +55,6 @@ var sign = function(hash, callback) {
         var passphrase = $('#passphrase').val();
         if (passphrase) {
             if (!result.keys[0].decrypt(passphrase)) {
-                //showErrorSigning = true;
-                //errorSigning.text('Your password doesn\'t match the private key\'s. Mind trying again?')
-                //errorSigning.show();
-                //$('#okSignature').enable(true).text('Sign');
                 return;
             }
         }
@@ -118,4 +104,19 @@ var sign = function(hash, callback) {
     }
 };
 
-
+$('#keybaseLookup').on('click', function(e){
+    var kbuser = $('#keybaseUser').val(); 
+    $.ajax('https://keybase.io/_/api/1.0/user/lookup.json?usernames=' + kbuser).done(function(res){
+        var fprint = res.them[0].public_keys.primary.key_fingerprint;
+        console.log(res); 
+        $('#keybaseFingerprint').val(fprint);
+        var signature = $('#keybaseSig').val();
+        var fingerprint = fprint;
+        var api = JSON.stringify({'signature':signature,'fingerprint':fingerprint}); 
+        $('#api_data').val(api);
+        requestHash = CryptoJS.algo.SHA256.create();
+        requestHash.update(CryptoJS.enc.Latin1.parse(api));
+        var hash2 = requestHash.finalize();
+        $('#api_hash').val(hash2); 
+    });
+});
