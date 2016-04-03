@@ -18,9 +18,9 @@
 <input type="file" id="files" name="file" /><br />
 <h3>Step Two</h3>
 <p>Get the hash of your receipt</p>
-<button id="getHash">Generate Hash</button>
-<label for "hash">Hash of your Receipt</label>
-<input type="text" id="hash" size="80">
+<button class="getHash first">Generate Hash</button>
+<label for "hash1">Hash of your Receipt</label>
+<input type="text" id="hash1" size="80">
 <h3>Step Three</h3>
 <label for "checkRegister">Verify that Your Receipt is Registered on Block 
 Chain</label>
@@ -28,6 +28,13 @@ Chain</label>
 <div id="regResult"></div>
 <div id="regUpshot"></div>
 <div id="docHash"></div>
+<h3>Step Four</h3>
+<p>Upload your document to confirm that is matches this hash</p>
+<input type="file" id="files2" name="file2" /><br />
+<button class="getHash second">Generate Hash</button>
+<label for "hash2">Hash of your Document</label>
+<input type="text" id="hash2" size="80">
+<div id="docHashUpshot"></div>
 <script 
 src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
