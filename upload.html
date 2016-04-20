@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by devynglass (http://jsbin.com/dinupi/8/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+ <head>
+ <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-2mX2PSpkRSXLQzmNzH3gwK6srb06+OfbDlYjbog8LQuALYJjuQ3+Yzy2JIWNV9rW" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Online Notary Upload Progess</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, user-scalable = no">
+<link rel="stylesheet" href="css/upload.css">
+</style>
+</head>
+    <body>
+<div id="home" class="home"><a href="http://output.jsbin.com/marifa" title="Home"><img src="http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png" width="45" alt="Home" style="z-index:999;position:fixed;top:100px;right:0px;"></a></div>      
+<h1 class="myH1">Online Notary System</h1><br /><br />
+  <p class="p1">Before Starting You Must Have A:
+    <br/><a href="https://keybase.io/" target="_blank">Keybase</a> Account<br />
+   And A Bitcoin Wallet, Suggested-- <a href="https://www.coinbase.com/" target="_blank">Coinbase</a>  
+  </p> <br />
+ <div class="b1">    
+      <button class="begin" id="begin">Let's Begin</button>
+      </div>
+<div id="wrapper1" class="wrapper1">
+<h3 class="myH3">Step One</h3>
+<p>Upload File to be Notarized.</p><br />
+<input class="input1" type="file" id="files" name="file" />
+</div>
+ <div id="wrapper2" class="wrapper2">       
+<h3 class="myH4">Step Two</h3>
+<p>Generate Unique Hash of Uploaded Document.</p>
+<button id="readBytesButtons" class="readBytesButtons">Click to Calculate Hash</button>
+    <div id="byte_range"></div><br />
+    <div id="byte_content"></div>
+    <div id="crypto_sha256"></div>
+ <!--  <label for="hash">Document Hash:<label>
+    <input id="hash">-->
+        </div>
+<div id="wrapper3" class="wrapper3"> 
+<h3 class="myH5">Step Three</h3>
+ <p>Sign the Document with Keybase.</p>
+ <p>(1) Copy Document Hash:
+ <input type="text" id="hash2">
+<p>(2) Go to <a id="key" href="https://keybase.io/sign"
+                target="_new">https://keybase.io/sign</a></p>
+ <p>(3) Paste Document Hash in the "Message to sign" box</p>
+ <p>(4) Insert passphrase and sign message
+ <p>(5) Copy text from "The Signed Message" box</p>
+<p>(6) Paste the signed text in this box:</p>
+<textarea id="keybaseSig" cols="65" rows="10"></textarea>
+<p>(7) Provide Your Keybase Username</p>
+<input type="text" id="keybaseUser">
+<button class="KeybaseLookup" id="keybaseLookup">Lookup</button>
+  <br />
+<br/><label for="keybaseFingerprint">Your Key's Fingerprint:</label>
+<input type="text" id="keybaseFingerprint">
+<br /><br />
+<label for="api_hash"><span style="color:red">*</span>Signed Documnet Hash</label>
+<input id="api_hash" size="65"></textarea>
+ <div id="wrapper4" class="wrapper4"> 
+<h3 class="myH6">Step Four</h3>
+<p>Register Signed Document to <a href="https://www.proofofexistence.com/" target="_new">ProofofExistence</a> Block Chain</p>
+   <button id="AjaxRegister">Register</button><br />
+      <br /><label for="Rresult">Address of Where to Send Payment:</label>   
+ <input id="Rresult" size="65"></input>
+ </div>
+<div id="wrapper5" class="wrapper5"> 
+<h3 class="myH7">Step Five</h3>
+  <p>Make Payment</p> 
+      <p>(1) Copy Address of Where to Send Payment</p>
+  <div id="pay">
+      <p>(2) Sign in to <a href="https://www.coinbase.com/" target="_blank">Coinbase</a> account</p>
+  </div>
+      <p>(3) Insert Address into Recipient Box</p>
+      <p>(4) Send 0.005 BTC (Equavalent to $2.12)</p>
+</div> 
+<div id="wrapper6" class="wrapper6"> 
+<h3 class="myH8">Step Six</h3>
+ <p class="pR">Proof of Registration: This data is your "documentation" of you signing the uploaded document. You MUST keep this in your records, along with the original document.</p><br />
+    <label for="api_data">Copy and Save in Plain Text Document:</label><br />
+<textarea id="api_data" cols="65" rows="15"></textarea><br /><br />
+ </div> 
+<div id="alert" class="alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Congrats you did it!</strong> Please <a href="http://output.jsbin.com/dudusov">Verify Completion</a>
+</div>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+<script id="jsbin-javascript">
+var sha256, requestHash;
+
+function readBlob(opt_startByte, opt_stopByte) {
+    var files = document.getElementById('files').files;
+    if (!files.length) {
+        alert('Please select a file!');
+        return;
+    }
+
+    var file = files[0];
+    var start = parseInt(opt_startByte) || 0;
+    var stop = parseInt(opt_stopByte) || file.size - 1;
+
+    var reader = new FileReader();
+
+    // If we use onloadend, we need to check the readyState.
+    reader.onloadend = function(evt) {
+        if (evt.target.readyState === FileReader.DONE) { // DONE == 2
+            sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
+            var hash = sha256.finalize();
+            document.getElementById('crypto_sha256').textContent = ['SHA-256: ', hash].join('');
+            //$('#hash').val(hash);
+            $('#hash2').val(hash);
+        }
+    };
+
+    var blob = file.slice(start, stop + 1);
+    reader.readAsBinaryString(blob);
+}
+
+document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
+    if (evt.target.tagName.toLowerCase() === 'button') {
+    var startByte = evt.target.getAttribute('data-startbyte');
+    var endByte = evt.target.getAttribute('data-endbyte');
+
+    sha256 = CryptoJS.algo.SHA256.create();
+
+    readBlob(startByte, endByte);
+} }, false);
+
+//document.querySelector('#sign').addEventListener('click', function(evt) {
+//    sign($('#hash').val());
+//});
+
+var sign = function(hash, callback) {
+
+    var privKey = $('#privateKey').val();
+    var signature;
+
+    var result = openpgp.key.readArmored(privKey);
+
+    if (result.keys.length) {
+        var passphrase = $('#passphrase').val();
+        if (passphrase) {
+            if (!result.keys[0].decrypt(passphrase)) {
+                return;
+            }
+        }
+        var fingerprint = result.keys[0].primaryKey.getFingerprint();
+
+        openpgp.signClearMessage(result.keys, hash).then(function(sig) {
+            signature = sig;
+            $('#hash-result').val(hash);
+            $('#fingerprint').val(fingerprint);
+            $('#signature').val(signature);
+
+           //var api = JSON.stringify('[{"signature":"' + signature + '","fingerprint":"' + fingerprint + '"}]');
+           var api = JSON.stringify({'signature':signature,'fingerprint':fingerprint}); 
+           $('#api_data').val(api); 
+
+           
+           requestHash = CryptoJS.algo.SHA256.create();
+           requestHash.update(CryptoJS.enc.Latin1.parse(api));
+           var hash2 = requestHash.finalize();
+           $('#api_hash').val(hash2); 
+
+            //$.post('/api/v2/appendSig/', {
+                //hash: hash,
+                //signature: {signature: signature, fingerprint: fingerprint}
+            //}).done(function(result) {
+                //if (!result.success) {
+                ////showErrorSigning = true;
+                ////errorSigning.text('We had some issues verifying your signature. Mind trying again later?');
+                ////errorSigning.show();
+                //$('#okSignature').enable(true).text('Sign');
+                //} else {
+                //$('#okSignature').enable(true).text('Sign');
+                //callback();
+                //}
+            //});
+        }).catch(function(e) {
+            //showErrorSigning = true
+            //errorSigning.text('We had some issues verifying your private key. Mind trying again later?');
+            //errorSigning.show();
+            //$('#okSignature').enable(true).text('Sign');
+        });
+    } else {
+        //showErrorSigning = true
+        //errorSigning.text('We couldn\'t recognize the validity of your private key. Mind trying again?');
+        //errorSigning.show();
+        //$('#okSignature').enable(true).text('Sign');
+    }
+};
+
+$('#keybaseLookup').on('click', function(e){
+    var kbuser = $('#keybaseUser').val(); 
+    $.ajax('https://keybase.io/_/api/1.0/user/lookup.json?usernames=' + kbuser).done(function(res){
+        var fprint = res.them[0].public_keys.primary.key_fingerprint;
+        console.log(res); 
+        $('#keybaseFingerprint').val(fprint);
+        var signature = $('#keybaseSig').val();
+        var fingerprint = fprint;
+        var api = JSON.stringify({'signature':signature,'fingerprint':fingerprint}); 
+        $('#api_data').val(api);
+        requestHash = CryptoJS.algo.SHA256.create();
+        requestHash.update(CryptoJS.enc.Latin1.parse(api));
+        var hash2 = requestHash.finalize();
+        $('#api_hash').val(hash2); 
+    });
+});
+
+$('#AjaxRegister').on('click', function(e){
+  var hash2 = $('#api_hash').val();
+  $.ajax({
+      url: 'https://loyolalawtech.org/json/btc-notary-register.php',
+      method: 'post',
+      dataType: 'json',
+      data:{'d':hash2}
+  })
+  .fail(function(xhr,status,error){
+      console.log(status);
+      console.log(error);
+  })
+  .done(function(result) { 
+    console.log(result);
+ $('#Rresult').val(result.pay_address);
+  });  
+});
+
+
+///$(document).ready(function () {
+
+    // $("#wrapper1").hide();
+
+   // $("#begin").click(function(){
+         //$("#wrapper1").toggle();
+   // });
+//});
+
+//$(document).ready(function () {
+
+    // $("#wrapper2").hide();
+
+   // $("#files").click(function(){
+        // $("#wrapper2").toggle();
+   // });
+//});
+
+//$(document).ready(function () {
+
+   //  $("#wrapper3").hide();
+
+   // $("#readBytesButtons").click(function(){
+        // $("#wrapper3").toggle();
+   // });
+//});
+
+//$(document).ready(function () {
+
+   //  $("#wrapper4").hide();
+
+   // $("#keybaseLookup").click(function(){
+        // $("#wrapper4").toggle();
+   // });
+//});
+
+//$(document).ready(function () {
+
+    // $("#wrapper5").hide();
+
+   // $("#AjaxRegister").click(function(){
+         //$("#wrapper5").toggle();
+    //});
+//});
+
+//$(document).ready(function () {
+
+    // $("#wrapper6").hide();
+
+    //$("#pay").click(function(){
+        // $("#wrapper6").toggle();
+   // });
+//});
+
+//$(document).ready(function () {
+
+     //$("#alert").hide();
+
+   // $("#pay").click(function(){
+        // $("#alert").toggle();
+   // });
+//});
+</script>
+</body>
+</html>
