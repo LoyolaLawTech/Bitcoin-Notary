@@ -1,0 +1,24 @@
+.myH1 {
+    text-align: center; 
+    background-color:mintcream; 
+}
+
+.myP {
+    font-size:18px; 
+    text-align:justify; 
+    background-color:whitesmoke;
+  margin: auto;
+  width: 80%;
+}
+.wrapper{
+    text-align:left;
+    font-size:15px;
+}
+
+body{background-color:whitesmoke;
+}
+
+a:hover{
+    color:orangered; 
+}
+
