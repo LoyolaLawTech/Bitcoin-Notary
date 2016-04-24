@@ -133,71 +133,98 @@ $('#AjaxRegister').on('click', function(e){
   })
   .done(function(result) { 
     console.log(result);
- $('#Rresult').val(result.pay_address);
+    $('#payaddress').val(result.pay_address);
   });  
 });
 
+$('#Confirm').on('click', function(e){
+  //var hash2 = '1d7a94f7f75b88c0ddbb8a52e7e5a1a54b8463dab73e766ee5e41bcfecae53b0';
+  var hash2 = $('#api_hash').val();
+  $.ajax({
+      url: 'https://loyolalawtech.org/json/btc-notary.php',
+      method: 'post',
+      dataType: 'json',
+      data:{'d':hash2}
+  })
+  .fail(function(xhr,status,error){
+      console.log(status);
+      console.log(error);
+  })
+  .done(function(result) { 
+    console.log(result);
+    $('#Pcomplete').val(result.txstamp);
+    $('#Rcomplete').val(result.timestamp);
+    $('#block').attr('href','https://www.blocktrail.com/BTC/tx/' + result.tx);
+    });
+  });  
 
-///$(document).ready(function () {
 
-    // $("#wrapper1").hide();
+$('#saveDoc').on('click', function(e){
+    e.preventDefault();
+    var data = $('#api_data').val();
+    var blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
+    saveAs(blob, "receipt.txt");
+});
+$(document).ready(function () {
 
-   // $("#begin").click(function(){
-         //$("#wrapper1").toggle();
-   // });
-//});
+   $('#wrapper1').hide();
 
-//$(document).ready(function () {
+   $('#begin').click(function(){
+        $('#wrapper1').toggle();
+   });
+});
 
-    // $("#wrapper2").hide();
+$(document).ready(function () {
 
-   // $("#files").click(function(){
-        // $("#wrapper2").toggle();
-   // });
-//});
+    $('#wrapper2').hide();
 
-//$(document).ready(function () {
+   $('#files').click(function(){
+        $('#wrapper2').toggle();
+   });
+});
 
-   //  $("#wrapper3").hide();
+$(document).ready(function () {
 
-   // $("#readBytesButtons").click(function(){
-        // $("#wrapper3").toggle();
-   // });
-//});
+    $('#wrapper3').hide();
 
-//$(document).ready(function () {
+   $('#readBytesButtons').click(function(){
+        $('#wrapper3').toggle();
+   });
+});
 
-   //  $("#wrapper4").hide();
+$(document).ready(function () {
 
-   // $("#keybaseLookup").click(function(){
-        // $("#wrapper4").toggle();
-   // });
-//});
+    $('#wrapper4').hide();
 
-//$(document).ready(function () {
+   $('#keybaseLookup').click(function(){
+        $('#wrapper4').toggle();
+   });
+});
 
-    // $("#wrapper5").hide();
+$(document).ready(function () {
 
-   // $("#AjaxRegister").click(function(){
-         //$("#wrapper5").toggle();
-    //});
-//});
+    $('#wrapper5').hide();
 
-//$(document).ready(function () {
+   $('#AjaxRegister').click(function(){
+        $('#wrapper5').toggle();
+   });
+});
 
-    // $("#wrapper6").hide();
+$(document).ready(function () {
 
-    //$("#pay").click(function(){
-        // $("#wrapper6").toggle();
-   // });
-//});
+    $('#wrapper6').hide();
 
-//$(document).ready(function () {
+   $('#pay').click(function(){
+        $('#wrapper6').toggle();
+   });
+});
 
-     //$("#alert").hide();
+$(document).ready(function () {
 
-   // $("#pay").click(function(){
-        // $("#alert").toggle();
-   // });
-//});
+    $('#alert').hide();
+
+   $('#pay').click(function(){
+        $('#alert').toggle();
+   });
+});
 
