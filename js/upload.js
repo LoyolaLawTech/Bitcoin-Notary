@@ -104,7 +104,7 @@ $('#saveDoc').on('click', function(e){
     e.preventDefault();
     var data = $('#api_data').val();
     var blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
-    saveAs(blob, "receipt.txt");
+    saveAs(blob, "receipt.txt",true);
 });
 
 $(document).ready(function () {
