@@ -78,8 +78,9 @@ $('#checkRegister').on('click', function(){
     var data = $('#hash1').val();
     var settings = {
         'dataType': 'json',
-        'url': 'https://loyolalawtech.org/json/btc-notary.php?d=' + data,
-        'method': 'GET'
+        'url': 'https://loyolalawtech.org/json/btc-notary.php',
+        'method': 'post',
+        'data': {d: data}
     };
 
     $.ajax(settings).done(function (response) {
@@ -98,28 +99,18 @@ $('#checkRegister').on('click', function(){
 
 $(document).ready(function () {
 
-    $("#step2").hide();
+    $('#step1').show();
 
-    $("#files").click(function(){
-         $("#step2").toggle();
+    $('#files').click(function(){
+         $('#step2').toggle();
     });
-});
 
-$(document).ready(function () {
-
-    $("#step3").hide();
-
-    $("#step2hash").click(function(){
-         $("#step3").toggle();
+    $('#step2hash').click(function(){
+         $('#step3').toggle();
     });
-});
 
-$(document).ready(function () {
-
-     $("#step4").hide();
-
-    $("#checkRegister").click(function(){
-         $("#step4").toggle();
+    $('#checkRegister').click(function(){
+         $('#step4').toggle();
     });
 });
 
