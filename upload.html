@@ -13,105 +13,151 @@ Released under the MIT license: http://jsbin.mit-license.org
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Online Notary Upload Progess</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, user-scalable = no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/upload.css">
-        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-2mX2PSpkRSXLQzmNzH3gwK6srb06+OfbDlYjbog8LQuALYJjuQ3+Yzy2JIWNV9rW" crossorigin="anonymous">
     </head>
 <body>
-    <div id="home" class="home">
-        <a href="http://output.jsbin.com/marifa" title="Home">
-        <img src="http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png" width="45" alt="Home" style="z-index:999;position:fixed;top:100px;right:0px;">
-        </a>
-    </div>      
-    <h1 class="myH1">Loyola Bitcoin Notary System</h1>
-    <br /><br />
-    <p class="p1">Before Starting You Must Have A:
-    <br/><a href="https://keybase.io/" target="_blank">Keybase</a> Account<br />
-   And A Bitcoin Wallet, Suggested-- <a href="https://www.coinbase.com/" target="_blank">Coinbase</a>  
-    </p> 
-    <br />
-    <div class="b1">    
-      <button class="begin" id="begin">Let's Begin</button>
-    </div>
-    <div id="wrapper1" class="wrapper1">
-        <h3 class="myH3">Step One</h3>
-        <p>Upload File to be Notarized.</p><br />
-        <input class="input1" type="file" id="files" name="file" />
-    </div>
-    <div id="wrapper2" class="wrapper2">       
-        <h3 class="myH4">Step Two</h3>
-        <p>Generate Unique Hash of Uploaded Document.</p>
-        <button id="readBytesButtons" class="readBytesButtons">Click to Calculate Hash</button>
-        <div id="byte_range"></div><br />
-        <div id="byte_content"></div>
-        <div id="crypto_sha256"></div>
-    <!--  <label for="hash">Document Hash:<label>
-        <input id="hash">-->
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="row">
+            <div class="jumbotron">
+                <div id="home" class="home">
+                    <a href="home.html" title="Home">
+                    <img src="http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png" width="45" alt="Home" style="z-index:999;position:fixed;top:100px;right:0px;">
+                    </a>
+                </div>      
+                <h1 class="myH1">Loyola Bitcoin Notary System</h1>
+                <br /><br />
+                <h4 class="text-center">Before starting, you should have a
+                    <a href="https://keybase.io/" target="_blank">Keybase</a> account and a bitcoin wallet.
+                    We suggest <a href="https://www.coinbase.com/" target="_blank">Coinbase.</a>  
+                </h4> 
+                <br />
+                <div class="b1">    
+                <button class="begin" id="begin">Let's Begin</button>
+            </div>
         </div>
-    <div id="wrapper3" class="wrapper3"> 
-        <h3 class="myH5">Step Three</h3>
-        <p>Sign the Document with Keybase.</p>
-        <p>(1) Copy Document Hash:
-        <input type="text" id="hash2">
-        <p>(2) Go to <a id="key" href="https://keybase.io/sign" target="_new">https://keybase.io/sign</a></p>
-        <p>(3) Paste Document Hash in the "Message to sign" box</p>
-        <p>(4) Insert passphrase and sign message
-        <p>(5) Copy text from "The Signed Message" box</p>
-        <p>(6) Paste the signed text in this box:</p>
-        <textarea id="keybaseSig" cols="65" rows="10"></textarea>
-        <p>(7) Provide Your Keybase Username</p>
-        <input type="text" id="keybaseUser">
-        <button class="KeybaseLookup" id="keybaseLookup">Lookup</button>
-        <br /> <br/>
-        <label for="keybaseFingerprint">Your Key's Fingerprint:</label>
-        <input type="text" id="keybaseFingerprint">
-        <br /><br />
-        <label for="api_hash">
-        <span style="color:red">*</span>Signed Documnet Hash</label>
-        <input id="api_hash" size="65"></textarea>
-    <div id="wrapper4" class="wrapper4"> 
-        <h3 class="myH6">Step Four</h3>
-        <p>Register Signed Document to <a href="https://www.proofofexistence.com/" target="_new">ProofofExistence</a> Block Chain</p>
-        <button id="AjaxRegister">Register</button><br />
-        <br /><label for="Rresult">Address of Where to Send Payment:</label>   
-        <input id="payaddress" size="65"></input>
     </div>
-    <div id="wrapper5" class="wrapper5"> 
-        <h3 class="myH7">Step Five</h3>
-        <p>Make Payment</p> 
-        <p>(1) Copy Address of Where to Send Payment</p>
-        <div id="pay">
-        <p>(2) Sign in to <a href="https://www.coinbase.com/" target="_blank">Coinbase</a> account</p>
+    <div id="wrapper1" class="row wrapper">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step One</h4></div>
+            <div class="panel-body">
+                <p>Upload File to be Notarized.</p><br />
+                <input class="btn btn-default btn-lg" type="file" id="files" name="file" />
+            </div>
         </div>
-        <p>(3) Insert Address into Recipient Box</p>
-        <! -- js conversion from JSON val result.price would be result.price * .00000001 -->
-        <p>(4) Send 0.005 BTC (Equavalent to $2.12) </p>
+    </div>
+    <div id="wrapper2" class="wrapper row">       
+        <!-- <h3 class="myH4">Step Two</h3> -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step Two</h4></div>
+            <div class="panel-body">
+                <p>Generate Unique Hash of Uploaded Document.</p>
+                <button id="readBytesButtons" class="readBytesButtons">Click to Calculate Hash</button>
+                <div id="byte_range"></div><br />
+                <div id="byte_content"></div>
+                <div id="crypto_sha256"></div>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper3" class="wrapper row"> 
+        <!-- <h3 class="myH5">Step Three</h3> -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step Three</h4></div>
+            <div class="panel-body">
+                <p>Sign the Document with Keybase.</p>
+                <ol>
+                    <li> Copy Document Hash: <input type="text" id="hash2"> </li>
+                    <li>  Go to <a id="key" href="https://keybase.io/sign" target="_new">https://keybase.io/sign</a></li>
+                    <li> Paste Document Hash in the "Message to sign" box</li>
+                    <li>  Insert passphrase and sign message</li>
+                    <li> Copy text from "The Signed Message" box and paste it here: </li>
+                </ol>
+                <textarea id="keybaseSig" cols="65" rows="10"></textarea>
+                <ol start="6">
+                    <li>Provide Your Keybase Username</li>
+                </ol>
+                <div class="input-group">
+                    <input type="text" id="keybaseUser" class="form-control">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" id="keybaseLookup" type="button">Lookup</button>
+                    </span>
+                </div>
+                <div class="input-group">
+                    <label for="keybaseFingerprint">Your Key's Fingerprint:</label>
+                    <input type="text" id="keybaseFingerprint" class="form-control">
+                </div>
+                <div class="input-group">
+                    <label for="api_hash">
+                    <span style="color:red">*</span>Signed Document Hash</label>
+                    <input class="form-control" id="api_hash" size="65">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper4" class="wrapper row"> 
+        <!-- <h3 class="myH6">Step Four</h3> -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step Four</h4></div>
+            <div class="panel-body">
+                <p>Register Signed Document to the Bitcoin blockchain using <a href="https://www.proofofexistence.com/" target="_new">ProofofExistence</a>. </p>
+                <button id="AjaxRegister">Register</button><br />
+            </div>
+        </div>
+    </div>
+    <div id="wrapper5" class="wrapper row"> 
+        <!-- <h3 class="myH7">Step Five</h3> -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step Five</h4></div>
+            <div class="panel-body">
+                <p>Make Payment</p> 
+                <ol>
+                    <li>Sign in to <a href="https://www.coinbase.com/" target="_blank">Coinbase</a> account</li>
+                    <li>Insert This Address into Recipient Box:</li>
+                </ol>
+                <div class="input-group">
+                    <input id="payaddress" size="65" class="form-control">
+                </div>
+                <ol start="3">
+                    <li>Send 0.005 BTC (Equavalent to $2.12)</li>
+                    <li>Once complete, click: </li>
+                </ol>
+                <button class="btn btn-default" id="pay">I've Made the Payment</button>
+            </div>
+        </div>
     </div> 
-    <div id="wrapper6" class="wrapper6"> 
-        <h3 class="myH8">Step Six</h3>
-            <p>Confirm Payment and Registration.</p>
-            <button id="Confirm">Confirm Registration</button><br />
-            <br /><label for="Pcomplete">Payment Timestamp:</label>
-            <input type="text" id="Pcomplete"/>
-            <br />
-            <label for="Rcomplete">Registration Timestamp:</label>
-            <input type="text" id="Rcomplete"/>
-            <br />
-            <a id="block" href="https://www.blocktrail.com/BTC/tx/" target="_blank">Verify on BLOCKTRAIL</a>
-            <p class="pR">Proof of Registration: This data is your "documentation" of you signing
-            the uploaded document. You MUST keep this in your records, along with the original document.</p><br />
-                <label for="api_data">Copy and Save in Plain Text Document:</label><br />
-            <textarea type="text" onclick="this.select()" id="api_data" cols="65" rows="15"></textarea><br /><br />
-            <a href="#" id="saveDoc" class="btn btn-default">Save Receipt to Your Computer</a>
+    <div id="wrapper6" class="wrapper row"> 
+        <!-- <h3 class="myH8">Step Six</h3> -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Step Six</h4></div>
+            <div class="panel-body">
+                <p>Confirm Payment and Registration.</p>
+                <button id="Confirm" class="btn btn-default" >Confirm Registration</button><br />
+                <div class="input-group">
+                    <label for="Pcomplete">Payment Timestamp:</label>
+                    <input type="text" class="form-control" id="Pcomplete"/>
+                </div>
+                <div class="input-group">
+                    <label for="Rcomplete">Registration Timestamp:</label>
+                    <input type="text" id="Rcomplete" class="form-control"/>
+                </div>
+                <a id="block" href="https://www.blocktrail.com/BTC/tx/" target="_blank">Verify on BLOCKTRAIL</a>
+                <p>Proof of Registration: This data is the documentation of you signing
+                the uploaded document. You MUST keep this in your records, along with the original document.</p><br />
+                    <label for="api_data">Copy and Save in Plain Text Document:</label><br />
+                <textarea type="text" onclick="this.select()" id="api_data" cols="65" rows="15"></textarea><br /><br />
+                <a href="#" id="saveDoc" class="btn btn-default">Save Receipt to Your Computer</a>
+            </div>
+        </div>
     </div>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha256.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/upload.js"></script>
     <script src="js/FileSaver.min.js"></script>
 
+ <div>
 </body>
 </html>

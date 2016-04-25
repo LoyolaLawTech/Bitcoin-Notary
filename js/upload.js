@@ -1,5 +1,10 @@
 var sha256, requestHash;
 
+function scrollToAnchor(aid){
+    var aTag = $('#' + aid);
+    $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}
+
 function readBlob(opt_startByte, opt_stopByte) {
     var files = document.getElementById('files').files;
     if (!files.length) {
@@ -20,7 +25,7 @@ function readBlob(opt_startByte, opt_stopByte) {
             var hash = sha256.finalize();
             document.getElementById('crypto_sha256').textContent = ['SHA-256: ', hash].join('');
             //$('#hash').val(hash);
-            $('#hash2').val(hash);
+            $('#hash2').val(hash).select();
         }
     };
 
@@ -37,70 +42,6 @@ document.querySelector('.readBytesButtons').addEventListener('click', function(e
 
     readBlob(startByte, endByte);
 } }, false);
-
-//document.querySelector('#sign').addEventListener('click', function(evt) {
-//    sign($('#hash').val());
-//});
-
-var sign = function(hash, callback) {
-
-    var privKey = $('#privateKey').val();
-    var signature;
-
-    var result = openpgp.key.readArmored(privKey);
-
-    if (result.keys.length) {
-        var passphrase = $('#passphrase').val();
-        if (passphrase) {
-            if (!result.keys[0].decrypt(passphrase)) {
-                return;
-            }
-        }
-        var fingerprint = result.keys[0].primaryKey.getFingerprint();
-
-        openpgp.signClearMessage(result.keys, hash).then(function(sig) {
-            signature = sig;
-            $('#hash-result').val(hash);
-            $('#fingerprint').val(fingerprint);
-            $('#signature').val(signature);
-
-           //var api = JSON.stringify('[{"signature":"' + signature + '","fingerprint":"' + fingerprint + '"}]');
-           var api = JSON.stringify({'signature':signature,'fingerprint':fingerprint}); 
-           $('#api_data').val(api); 
-
-           
-           requestHash = CryptoJS.algo.SHA256.create();
-           requestHash.update(CryptoJS.enc.Latin1.parse(api));
-           var hash2 = requestHash.finalize();
-           $('#api_hash').val(hash2); 
-
-            //$.post('/api/v2/appendSig/', {
-                //hash: hash,
-                //signature: {signature: signature, fingerprint: fingerprint}
-            //}).done(function(result) {
-                //if (!result.success) {
-                ////showErrorSigning = true;
-                ////errorSigning.text('We had some issues verifying your signature. Mind trying again later?');
-                ////errorSigning.show();
-                //$('#okSignature').enable(true).text('Sign');
-                //} else {
-                //$('#okSignature').enable(true).text('Sign');
-                //callback();
-                //}
-            //});
-        }).catch(function(e) {
-            //showErrorSigning = true
-            //errorSigning.text('We had some issues verifying your private key. Mind trying again later?');
-            //errorSigning.show();
-            //$('#okSignature').enable(true).text('Sign');
-        });
-    } else {
-        //showErrorSigning = true
-        //errorSigning.text('We couldn\'t recognize the validity of your private key. Mind trying again?');
-        //errorSigning.show();
-        //$('#okSignature').enable(true).text('Sign');
-    }
-};
 
 $('#keybaseLookup').on('click', function(e){
     var kbuser = $('#keybaseUser').val(); 
@@ -133,12 +74,11 @@ $('#AjaxRegister').on('click', function(e){
   })
   .done(function(result) { 
     console.log(result);
-    $('#payaddress').val(result.pay_address);
+    $('#payaddress').val(result.pay_address).select();
   });  
 });
 
 $('#Confirm').on('click', function(e){
-  //var hash2 = '1d7a94f7f75b88c0ddbb8a52e7e5a1a54b8463dab73e766ee5e41bcfecae53b0';
   var hash2 = $('#api_hash').val();
   $.ajax({
       url: 'https://loyolalawtech.org/json/btc-notary.php',
@@ -155,6 +95,7 @@ $('#Confirm').on('click', function(e){
     $('#Pcomplete').val(result.txstamp);
     $('#Rcomplete').val(result.timestamp);
     $('#block').attr('href','https://www.blocktrail.com/BTC/tx/' + result.tx);
+    $('#api_data').select();
     });
   });  
 
@@ -165,57 +106,37 @@ $('#saveDoc').on('click', function(e){
     var blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
     saveAs(blob, "receipt.txt");
 });
-$(document).ready(function () {
 
-   $('#wrapper1').hide();
+$(document).ready(function () {
 
    $('#begin').click(function(){
         $('#wrapper1').toggle();
+        scrollToAnchor('wrapper1');
    });
-});
-
-$(document).ready(function () {
-
-    $('#wrapper2').hide();
 
    $('#files').click(function(){
         $('#wrapper2').toggle();
+        scrollToAnchor('wrapper2');
    });
-});
-
-$(document).ready(function () {
-
-    $('#wrapper3').hide();
 
    $('#readBytesButtons').click(function(){
         $('#wrapper3').toggle();
+        scrollToAnchor('wrapper3');
    });
-});
-
-$(document).ready(function () {
-
-    $('#wrapper4').hide();
 
    $('#keybaseLookup').click(function(){
         $('#wrapper4').toggle();
+        scrollToAnchor('wrapper4');
    });
-});
-
-$(document).ready(function () {
-
-    $('#wrapper5').hide();
 
    $('#AjaxRegister').click(function(){
         $('#wrapper5').toggle();
+        scrollToAnchor('wrapper5');
    });
-});
-
-$(document).ready(function () {
-
-    $('#wrapper6').hide();
 
    $('#pay').click(function(){
         $('#wrapper6').toggle();
+        scrollToAnchor('wrapper6');
    });
 });
 
