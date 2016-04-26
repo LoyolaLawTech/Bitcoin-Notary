@@ -38,7 +38,7 @@ Released under the MIT license: http://jsbin.mit-license.org
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="#">Notarize <span class="sr-only">(current)</span></a></li>
+            <li><a href="upload.html">Notarize <span class="sr-only">(current)</span></a></li>
             <li class="active"><a href="verify.html">Verify</a></li>
             <li><a href="learn-more.html">Learn More</a></li>
         </ul>
@@ -67,32 +67,44 @@ Released under the MIT license: http://jsbin.mit-license.org
                 <div class="panel-heading"><h4>Step Two</h4></div>
                 <div class="panel-body">
                     <p>Generate the Hash of Your Proof of Registration</p>
-                    <button id="step2hash" class="getHash first btn btn-default">Calculate Hash</button><br /><br />
+                    <button id="step2hash" class="getHash first btn btn-default form-control">Calculate Hash</button><br /><br />
                     <div class="input-group">
                         <label for="hash1">Documentation Hash:</label>
-                        <input type="text" class="form-contro" id="hash1" size="80" style="color:blue">
+                        <input type="text" class="form-control" id="hash1" size="80" style="color:blue">
                     </div>
                 </div>
             </div>
         </div> 
         <div id="step3" class="wrapper row">
-            <h3 class="myH4">Step Three</h3>
-            <label for="checkRegister">Verify that Your Signed Document is Registered on Block Chain</label>
-            <br /><br />
-            <button id="checkRegister">Check Registration</button>
-            <div id="regResult"></div>
-            <div id="regUpshot"></div>
-            <div id="docHash"></div>
+            <!-- <h3 class="myH4">Step Three</h3> -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Step Three</h4></div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <label for="checkRegister">Verify that Your Proof of Registration is Registered on the Blockhain</label>
+                        <button id="checkRegister" class="btn btn-default form-control">Check Registration</button>
+                    </div>
+                    <div id="regResult"></div>
+                    <div id="regUpshot"></div>
+                    <div id="docHash"></div>
+                </div>
+            </div>
         </div>  
         <div id= "step4" class="wrapper row">
-            <h3 class="myH5">Step Four</h3>
-            <p>Upload Original Document to Confirm that it Matches this Hash</p>
-            <input class="input2" type="file" id="files2" name="file2"/><br/>
-            <br />
-            <button class="getHash second">Calculate Hash</button><br /><br />
-            <label for="hash2">Hash of Original Document:</label>
-            <input type="text" id="hash2" size="80" style="color:blue">
-            <div id="docHashUpshot"></div>
+            <!-- <h3 class="myH5">Step Four</h3> -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Step Four</h4></div>
+                <div class="panel-body">
+                    <p>Upload Original Document to Confirm that it Matches this Hash</p>
+                    <input  type="file" id="files2" name="file2"/><br/>
+                    <button class="getHash second btn btn-default form-control">Calculate Hash</button><br /><br />
+                    <div class="input-group">
+                        <label for="hash2">Hash of Original Document:</label>
+                        <input type="text" id="hash2" size="80" style="color:blue" class="form-control">
+                    </div>
+                    <div id="docHashUpshot"></div>
+                </div>
+            </div>
         </div>
         
         <div class="home">

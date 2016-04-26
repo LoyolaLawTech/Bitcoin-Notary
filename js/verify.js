@@ -36,7 +36,7 @@ function readBlob(opt_startByte, opt_stopByte, which) {
                 if (hash.toString() === docHash.toString()){
                     fingerprint = receiptData.fingerprint;
                     //fingerprint = '01506206c29e82b0b8c6c3000cce0de605ac57b5';
-                    $('#docHashUpshot').html('Yes, your uploaded document is the same one recorded in the blockchain');
+                    $('#docHashUpshot').html('Yes, your uploaded document is the same one recorded in the blockchain. ');
                     //check to see if this was signed with keybase key
                     $.ajax('https://keybase.io/_/api/1.0/user/lookup.json?key_fingerprint=' + fingerprint)
                     .done(function(res){
@@ -88,7 +88,7 @@ $('#checkRegister').on('click', function(){
        timestamp = response.timestamp;
        tx = response.tx;
        docHash = receiptData.signature.match(/([a-z0-9]){64}/g);
-       if (response.success){
+       if (response.success && !response.pending){
          $('#regUpshot').html('<b>Congrats. This hash is <a href="https://www.blocktrail.com/BTC/tx/' + tx + '">registered in the blockchain</a></b>');
             $('#docHash').html('The hash of the document you registered is ' + docHash);
          } else {
