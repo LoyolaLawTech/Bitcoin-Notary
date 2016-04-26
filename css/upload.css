@@ -2,7 +2,8 @@
 body{background-color:whitesmoke;}
 .myH1{
   text-align:center; 
-  background-color:mintcream;}
+    /* background-color:mintcream; */
+}
 .p1{
   font-size:20px;
   text-align:center;
