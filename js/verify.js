@@ -2,6 +2,11 @@
 /* globals alert, CryptoJS, openpgp */
 var sha256, receiptData, docHash, fingerprint, timestamp, tx;
 
+function scrollToAnchor(aid){
+    var aTag = $('#' + aid);
+    $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}
+
 function readBlob(opt_startByte, opt_stopByte, which) {
     var files;
     if (which === 'first'){
@@ -102,15 +107,18 @@ $(document).ready(function () {
     $('#step1').show();
 
     $('#files').click(function(){
-         $('#step2').toggle();
+        $('#step2').toggle();
+        scrollToAnchor('step2');
     });
 
     $('#step2hash').click(function(){
-         $('#step3').toggle();
+        $('#step3').toggle();
+        scrollToAnchor('step3');
     });
 
     $('#checkRegister').click(function(){
-         $('#step4').toggle();
+        $('#step4').toggle();
+        scrollToAnchor('step4');
     });
 });
 
