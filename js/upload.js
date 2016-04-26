@@ -74,7 +74,11 @@ $('#AjaxRegister').on('click', function(e){
   })
   .done(function(result) { 
     console.log(result);
-    $('#payaddress').val(result.pay_address).select();
+    if (!result.success && result.reason === 'existing'){
+        alert('You have already notarized this document.');
+    } else {
+        $('#payaddress').val(result.pay_address).select();
+    }
   });  
 });
 
@@ -140,14 +144,6 @@ $(document).ready(function () {
    });
 });
 
-$(document).ready(function () {
-
-    $('#alert').hide();
-
-   $('#pay').click(function(){
-        $('#alert').toggle();
-   });
-});
 
 $(function () {
   $('[data-toggle="popover"]').popover()

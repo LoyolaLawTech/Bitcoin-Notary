@@ -10,10 +10,10 @@ Released under the MIT license: http://jsbin.mit-license.org
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Upload - Loyola Bitcoin Notary</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/upload.css">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-2mX2PSpkRSXLQzmNzH3gwK6srb06+OfbDlYjbog8LQuALYJjuQ3+Yzy2JIWNV9rW" crossorigin="anonymous">
@@ -117,26 +117,20 @@ Released under the MIT license: http://jsbin.mit-license.org
                 </div>
                 <div class="input-group">
                     <label for="api_hash">
-                    <span style="color:red">*</span>Signed Document Hash</label>
+                    <label>Signed Document Hash</label>
                     <input class="form-control" id="api_hash" size="65">
                 </div>
-            </div>
-        </div>
-    </div>
-    <div id="wrapper4" class="wrapper row"> 
-        <!-- <h3 class="myH6">Step Four</h3> -->
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Step Four</h4></div>
-            <div class="panel-body">
-                <p>Register Signed Document to the Bitcoin blockchain using <a href="https://www.proofofexistence.com/" target="_new">ProofofExistence</a>. </p>
-                <button id="AjaxRegister">Register</button><br />
+                <div class="input-group">
+                    <label for="AjaxRegister">Register your document and Begin Payment</label>
+                    <button id="AjaxRegister" class="btn btn-default form-control">Register</button><br />
+                </div>
             </div>
         </div>
     </div>
     <div id="wrapper5" class="wrapper row"> 
         <!-- <h3 class="myH7">Step Five</h3> -->
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>Step Five</h4></div>
+            <div class="panel-heading"><h4>Step Four</h4></div>
             <div class="panel-body">
                 <p>Make Payment</p> 
                 <ol>
@@ -157,7 +151,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     <div id="wrapper6" class="wrapper row"> 
         <!-- <h3 class="myH8">Step Six</h3> -->
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>Step Six</h4></div>
+            <div class="panel-heading"><h4>Step Five</h4></div>
             <div class="panel-body">
                 <p>Confirm Payment and Registration.</p>
                 <button id="Confirm" class="btn btn-default" >Confirm Registration</button><br />
