@@ -8,32 +8,78 @@ Copyright (c) 2016 by devynglass (http://jsbin.com/xeqavar/3/edit)
 Released under the MIT license: http://jsbin.mit-license.org
 -->
 <head>
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Learn More</title>
+    <title>Learn More - Loyola Bitcoin Notary</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-2mX2PSpkRSXLQzmNzH3gwK6srb06+OfbDlYjbog8LQuALYJjuQ3+Yzy2JIWNV9rW" crossorigin="anonymous">
     <link rel="stylesheet" href="css/learn-more.css">
 </head>
 <body>
-    <h1 class="myH1">Additional Information</h1>
-    <p class="myP">If you are still confused about Bitcoin and the Blockchain technology,
-    please view these videos to obtain a better understanding. The first link provides a brief
-    explanation of the blockchain technology. The second link gives a non-techinical explanation
-    on what Bitcoin is. Finally, the last link provides a techinical explantion of how Bitcoin works. 
-    </p>  
-    <br />
-    <div class="wrapper">
-        <ul>
-            <li>Click <a href="https://www.youtube.com/watch?v=YIVAluSL9SU" target="_blank">here</a> to view video on Blockchain explanation.</li> 
-            <li>Click <a href="https://www.youtube.com/watch?v=t5JGQXCTe3c" target="_blank">here</a> to view video on Bitcoin (Non-technical Version).</li> 
-            <li>Click <a href="https://www.youtube.com/watch?v=l9jOJk30eQs" target="_blank">here</a> to view video on Bitcoin (Technical Version).</li>
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Loyola Bitcoin Notary</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="upload.html">Notarize <span class="sr-only">(current)</span></a></li>
+            <li><a href="verify.html">Verify</a></li>
+            <li class="active"><a href="learn-more.html">Learn More</a></li>
         </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="row">
+            <div class="jumbotron">
+                <h1 class="myH1">Learn More</h1>
+            </div>
+        </div>
+        <div class="row">
+            <h3>What Does it Do?</h3>
+            The Loyola Bitcoin Notary is a proof-of-concept project to demonstrate how a blockchain-based service can
+            emulate a real-life notary. When you upload a document, a cryptographic hash of that document is created. The 
+            hash (a series of letters and numbers) is unique to that document. Changing even one letter in the document would
+            change the hash. We take the hash of the document and use <a href="https://keybase.io">Keybase</a> to digitally sign the hash with 
+            your personal signature. We take that signed text, create a new hash from it, and then upload it to 
+            <a href="https://proofofexistence.com">Proof of Existence</a>. Once you pay the fee (roughly $2 USD), the hash is saved to the bitcoin blockchain.</p>
+
+            <h3>Who is Behind It?</h3>
+            <p>The Loyola Bitcoin Notary is a project of the <a href="https://loyolalawtech.org">Technology and Legal Innovation Clinic</a>
+            at the Loyola College of Law, New Orleans.  The project was created by 3L law students Devyn Glass, Stephanie
+            Toyos, Kris Beralo, and Nina Turk, under the supervision of Clinic Professor <a href="http://law.loyno.edu/bios/r-judson-mitchell-jr">Judson Mitchell</a>.</p>
+
+            <p>The project borrows heavily from the ideas of <a href="https://github.com/maraoz">Manuel Araoz</a> and uses his
+            <a href="https://proofofexistence.com">Proof of Existence</a> API to record data to the blockchain.</p>
+
+            <h3>Still Confused?</h3>
+            <p>If you are confused about Bitcoin and the Blockchain technology, take a look at these videos for a full explanation.  </p>  
+        </div>
+        <div class="row">
+            <h4>Cryptographic Hashes</h4>
+            <iframe width="425" height="240" src="https://www.youtube.com/embed/0WiTaBI82Mc" frameborder="0" allowfullscreen></iframe>
+            <h4>Blockchain</h4>
+            <iframe width="425" height="240" src="https://www.youtube.com/embed/YIVAluSL9SU" frameborder="0" allowfullscreen></iframe>
+            <h4>Bitcoin</h4>
+            <iframe width="425" height="240" src="https://www.youtube.com/embed/t5JGQXCTe3c" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
+    <!--
     <div class="home">
         <a href="http://output.jsbin.com/marifa" title="Home"><img src="http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png" width="45" alt="Home" style="z-index:999;position:fixed;top:100px;right:0px;"></a>
     </div>
+    -->
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
