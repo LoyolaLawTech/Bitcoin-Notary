@@ -75,7 +75,8 @@ $('#AjaxRegister').on('click', function(e){
   .done(function(result) { 
     console.log(result);
     if (!result.success && result.reason === 'existing'){
-        alert('You have already notarized this document.');
+        toastr.error('You have already notarized this document.');
+        $('#wrapper5').hide();
     } else {
         $('#payaddress').val(result.pay_address).select();
     }
@@ -96,11 +97,17 @@ $('#Confirm').on('click', function(e){
   })
   .done(function(result) { 
     console.log(result);
-    $('#Pcomplete').val(result.txstamp);
-    $('#Rcomplete').val(result.timestamp);
-    $('#block').attr('href','https://www.blocktrail.com/BTC/tx/' + result.tx);
-    $('#api_data').select();
+    if (result.pending === true){
+        toastr.error('Payment has not yet been received');
+    } else {
+        toastr.success('Payment successful');
+        $('#Pcomplete').val(result.txstamp);
+        $('#Rcomplete').val(result.timestamp);
+        $('#block').attr('href','https://www.blocktrail.com/BTC/tx/' + result.tx);
+        $('#api_data').select();
+    }
     });
+    
   });  
 
 
@@ -129,8 +136,7 @@ $(document).ready(function () {
    });
 
    $('#keybaseLookup').click(function(){
-        $('#wrapper4').toggle();
-        scrollToAnchor('wrapper4');
+        scrollToAnchor('reg-and-pay');
    });
 
    $('#AjaxRegister').click(function(){
